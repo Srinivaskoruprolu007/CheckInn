@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { TbSmartHome } from "react-icons/tb";
+import { FaRegCalendarCheck } from "react-icons/fa6";
+import { FaRegBuilding } from "react-icons/fa6";
+import { FaUsers } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
 
 const NavList = styled.ul`
   display: flex;
@@ -6,7 +12,7 @@ const NavList = styled.ul`
   gap: 0.8rem;
 `;
 
-const Link = styled.a`
+const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
     display: flex;
@@ -44,3 +50,43 @@ const Link = styled.a`
     color: var(--color-brand-600);
   }
 `;
+
+const MainNav = () => {
+  return (
+    <nav>
+      <NavList>
+        <li>
+          <StyledNavLink to="/dashboard">
+            <TbSmartHome /> Home
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/bookings">
+            <FaRegCalendarCheck />
+            Bookings
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/cabins">
+            <FaRegBuilding />
+            Cabins
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/account">
+            <FaUsers />
+            Account
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/settings">
+            <FaCog />
+            Settings
+          </StyledNavLink>
+        </li>
+      </NavList>
+    </nav>
+  );
+};
+
+export default MainNav;
