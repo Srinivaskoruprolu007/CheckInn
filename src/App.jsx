@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -32,6 +33,28 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
+      <Toaster
+        position="top-right"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            progress: 0.9,
+            duration: 3000,
+          },
+          error: {
+            style: { backgroundColor: "#FF0000" },
+            progress: 0.9,
+            duration: 3000,
+          },
+          style: {
+            fontSize: "1.6rem",
+            maxWidth: "500px",
+            padding: "16px 8px",
+            backgroundColor: "var(--color-grey-0)",
+          },
+        }}
+      />
     </>
   );
 };
