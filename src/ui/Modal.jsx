@@ -1,18 +1,51 @@
 import styled from "styled-components";
+import React, {
+  cloneElement,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { HiXMark } from "react-icons/hi2";
+import { createPortal } from "react-dom";
+import { createContext } from "react";
+import useDetectOutside from "../features/cabins/useDetectOutside";
 
-const StyledMenu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+const StyledModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-grey-0);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2.2rem 3.4rem;
+  transition: all 0.5s;
+  overflow-y: scroll;
 `;
 
-const StyledToggle = styled.button`
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--backdrop-color);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  transition: all 0.5s;
+`;
+
+const Button = styled.button`
   background: none;
   border: none;
   padding: 0.4rem;
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.9rem;
 
   &:hover {
     background-color: var(--color-grey-100);
@@ -21,42 +54,52 @@ const StyledToggle = styled.button`
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    color: var(--color-grey-700);
+    /* Sometimes we need both */
+    /* fill: var(--color-grey-500);
+    stroke: var(--color-grey-500); */
+    color: var(--color-grey-500);
   }
 `;
+// TODO -> create compound component
+// *Important  Step 1 : create new context
+const ModalContext = createContext();
 
-const StyledList = styled.ul`
-  position: fixed;
+const Modal = ({ children }) => {
+  const [openName, setOpenName] = useState();
+  const close = () => setOpenName("");
+  const open = (name) => setOpenName(name);
+  return (
+    <ModalContext.Provider value={{ openName, close, open }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
 
-  background-color: var(--color-grey-0);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--border-radius-md);
+const Open = ({ children, opens: opensWindowName }) => {
+  const { open } = useContext(ModalContext);
 
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
-`;
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+};
 
-const StyledButton = styled.button`
-  width: 100%;
-  text-align: left;
-  background: none;
-  border: none;
-  padding: 1.2rem 2.4rem;
-  font-size: 1.4rem;
-  transition: all 0.2s;
+const Window = ({ children, name }) => {
+  const { openName, close } = useContext(ModalContext);
+  const ref = useDetectOutside(close);
 
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
+  if (name !== openName) return null;
 
-  &:hover {
-    background-color: var(--color-grey-50);
-  }
+  return createPortal(
+    <Overlay>
+      <StyledModal ref={ref}>
+        <Button onClick={close}>
+          <HiXMark />
+        </Button>
+        <div>{cloneElement(children, { onClose: close })}</div>
+      </StyledModal>
+    </Overlay>,
+    document.body
+  );
+};
 
-  & svg {
-    width: 1.6rem;
-    height: 1.6rem;
-    color: var(--color-grey-400);
-    transition: all 0.3s;
-  }
-`;
+Modal.Open = Open;
+Modal.Window = Window;
+export default Modal;

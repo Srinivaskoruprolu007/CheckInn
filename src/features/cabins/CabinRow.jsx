@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useDeletecabin } from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import useCreateCabin from "./useCreateCabin";
+import Modal from "../../ui/Modal";
+import CabinTable from "./CabinTable";
 
 const TableRow = styled.div`
   display: grid;
@@ -85,12 +87,19 @@ const CabinRow = ({ cabin }) => {
           <button onClick={handleDuplicateCabin} disabled={isCreating}>
             <HiSquare2Stack />
           </button>
-          <button onClick={() => setShowForm((show) => !show)}>
-            <HiPencil />
-          </button>
-          <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-            <HiTrash />
-          </button>
+          <Modal>
+            <Modal.Open>
+              <button onClick={() => setShowForm((show) => !show)}>
+                <HiPencil />
+              </button>
+            </Modal.Open>
+            <Modal.Window>
+              <CreateCabinForm cabinToEdit={cabin} />
+            </Modal.Window>
+            <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+              <HiTrash />
+            </button>
+          </Modal>
         </div>
       </TableRow>
       {showForm && <CreateCabinForm cabinToEdit={cabin} />}
