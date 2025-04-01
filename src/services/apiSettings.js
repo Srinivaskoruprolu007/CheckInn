@@ -11,7 +11,6 @@ export const getSettings = async () => {
 };
 
 export const updateSettings = async (newSettings) => {
-  s;
   const { data, error } = await supabase
     .from("settings")
     .update(newSettings)
