@@ -1,3 +1,5 @@
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -54,4 +56,66 @@ const PaginationButton = styled.button`
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 `;
+
+const PAGE_COUNT = 5;
+
+const Pagination = ({ length }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+
+  console.log("Current Page:", currentPage); // Log the current page
+
+  const pageCount = Math.ceil(length / PAGE_COUNT);
+
+  const nextPage = () => {
+    const next = currentPage === pageCount ? currentPage : currentPage + 1;
+    console.log("nextPage", next);
+
+    searchParams.set("page", next);
+    setSearchParams(searchParams);
+  };
+
+  const previousPage = () => {
+    const prev = currentPage === 1 ? currentPage : currentPage - 1;
+    searchParams.set("page", prev);
+    setSearchParams(searchParams);
+  };
+
+  const startItem = (currentPage - 1) * PAGE_COUNT + 1;
+  const endItem = Math.min(currentPage * PAGE_COUNT, length);
+
+  return (
+    <StyledPagination>
+      <P>
+        Showing <span>{startItem}</span> to <span>{endItem}</span> of{" "}
+        <span>{length}</span> results
+      </P>
+      <Buttons>
+        <PaginationButton
+          onClick={previousPage}
+          // disabled={currentPage === 1}
+          aria-label="Previous Page"
+        >
+          <HiChevronLeft /> <span>Prev</span>
+        </PaginationButton>
+        <PaginationButton
+          onClick={nextPage}
+          // disabled={currentPage === pageCount}
+          aria-label="Next Page"
+        >
+          <HiChevronRight /> <span>Next</span>
+        </PaginationButton>
+      </Buttons>
+    </StyledPagination>
+  );
+};
+
+export default Pagination;

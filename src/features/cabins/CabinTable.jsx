@@ -3,15 +3,18 @@ import CabinRow from "./CabinRow";
 import useFetchCabins from "./useFetchCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
-import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
 
 function CabinTable() {
   const { isLoading, cabins } = useFetchCabins();
-  const [searchParams] = useSearchParams();
 
   if (isLoading) return <Spinner />;
   if (!cabins?.length) return <Empty resource="cabins" />;
+  let length;
+  if (cabins.length > 0) {
+    length = cabins.length;
+  }
 
   // // 1) FILTER
   // const filterValue = searchParams.get("discount") || "all";
@@ -50,6 +53,9 @@ function CabinTable() {
           data={cabins}
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
+        <Table.Footer>
+          <Pagination length={length} />
+        </Table.Footer>
       </Table>
     </Menus>
   );
