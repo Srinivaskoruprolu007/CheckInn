@@ -7,7 +7,11 @@ const CabinTableOperations = () => {
     <TableOperations>
       <Filter
         filteredField={"discount"}
-        options={["all", "with-discounts", "no-discounts"]}
+        options={[
+          { value: "all", label: "All" },
+          { value: "with-discounts", label: "Checked out" },
+          { value: "no-discounts", label: "Checked in" },
+        ]}
       />
       <SortBy
         options={[
