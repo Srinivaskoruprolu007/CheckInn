@@ -27,7 +27,9 @@ const BookingsTable = () => {
             <BookingRow key={booking.id} booking={booking} />
           )}
         />
-        <Pagination length={count} />
+        <Table.Footer>
+          <Pagination length={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

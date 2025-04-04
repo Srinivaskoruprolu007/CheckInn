@@ -64,8 +64,6 @@ const PaginationButton = styled.button`
   }
 `;
 
-
-
 const Pagination = ({ length }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = !searchParams.get("page")
@@ -102,14 +100,14 @@ const Pagination = ({ length }) => {
       <Buttons>
         <PaginationButton
           onClick={previousPage}
-          // disabled={currentPage === 1}
+          disabled={currentPage === 1}
           aria-label="Previous Page"
         >
           <HiChevronLeft /> <span>Prev</span>
         </PaginationButton>
         <PaginationButton
           onClick={nextPage}
-          // disabled={currentPage === pageCount}
+          disabled={currentPage === pageCount}
           aria-label="Next Page"
         >
           <HiChevronRight /> <span>Next</span>
