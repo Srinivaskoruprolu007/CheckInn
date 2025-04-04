@@ -16,16 +16,18 @@ const useFetchBookings = () => {
   const [field, direction] = sortByValue?.split("-");
   const asc = direction === "asc";
 
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
   const sort = { field, value: asc };
   const {
-    data: bookings,
+    data: { data: bookings, count } = {},
     error,
     isPending: isLoading,
   } = useQuery({
-    queryKey: ["bookings", filter, sort],
-    queryFn: () => getBookings({ filter, sortBy: sort }),
+    queryKey: ["bookings", filter, sort, page],
+    queryFn: () => getBookings({ filter, sortBy: sort, page }),
   });
 
-  return { bookings, error, isLoading };
+  return { bookings, error, isLoading, count };
 };
 export default useFetchBookings;

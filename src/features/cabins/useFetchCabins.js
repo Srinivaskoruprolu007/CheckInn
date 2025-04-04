@@ -17,14 +17,15 @@ const useFetchCabins = () => {
   const [sortField, direction] = sortByValue.split("-");
   const asc = direction === "asc";
   const sortBy = { field: sortField, value: asc };
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
   const {
-    data: cabins,
+    data: { data: cabins, count } = {},
     error,
     isPending,
   } = useQuery({
-    queryKey: ["cabins", filter, sortBy],
-    queryFn: () => getCabins({ filter, sortBy }),
+    queryKey: ["cabins", filter, sortBy, page],
+    queryFn: () => getCabins({ filter, sortBy , page }),
   });
-  return { cabins, error, isPending };
+  return { cabins, error, isPending, count };
 };
 export default useFetchCabins;

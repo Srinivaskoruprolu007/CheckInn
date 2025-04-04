@@ -1,6 +1,7 @@
 import supabase from "./supabase";
-export const getCabins = async ({ filter, sortBy }) => {
-  let query = supabase.from("cabins").select("*");
+import { PAGE_COUNT } from "../utils/constants";
+export const getCabins = async ({ filter, sortBy, page }) => {
+  let query = supabase.from("cabins").select("*", { count: "exact" });
   if (filter !== null) {
     query =
       filter.value === "no-discounts"
@@ -10,12 +11,16 @@ export const getCabins = async ({ filter, sortBy }) => {
   if (sortBy) {
     query = query.order(sortBy.field, { ascending: sortBy.value });
   }
-  const { data, error } = await query;
+
+  if (page) {
+    query = query.range((page - 1) * PAGE_COUNT, page * PAGE_COUNT - 1);
+  }
+  const { data, error, count } = await query;
   if (error) {
     console.error(error);
     throw new Error("Cabins could not be loaded");
   }
-  return data;
+  return { data, count };
 };
 
 export const deletecabin = async (id) => {
