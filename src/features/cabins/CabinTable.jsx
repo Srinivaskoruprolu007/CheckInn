@@ -7,7 +7,7 @@ import Empty from "../../ui/Empty";
 import Pagination from "../../ui/Pagination";
 
 function CabinTable() {
-  const { isLoading, cabins } = useFetchCabins();
+  const { isLoading, cabins, count } = useFetchCabins();
 
   if (isLoading) return <Spinner />;
   if (!cabins?.length) return <Empty resource="cabins" />;
@@ -54,7 +54,7 @@ function CabinTable() {
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
         <Table.Footer>
-          <Pagination length={length} />
+          <Pagination length={count} />
         </Table.Footer>
       </Table>
     </Menus>
