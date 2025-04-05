@@ -7,7 +7,6 @@ import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { MdCheckCircleOutline } from "react-icons/md";
 import { CgEye } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import { HiArrowDownOnSquare } from "react-icons/hi2";
@@ -89,7 +88,6 @@ function BookingRow({
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
           <Menus.List id={bookingId}>
-            <Menus.Button icon={<MdCheckCircleOutline />}>Book</Menus.Button>
             <Menus.Button
               icon={<CgEye />}
               onClick={() => navigate(`/bookings/${bookingId}`)}
