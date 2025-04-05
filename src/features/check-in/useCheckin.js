@@ -8,15 +8,16 @@ const useCheckin = () => {
   const navigate = useNavigate();
   const { mutate: checkin, isPending: isCheckin } = useMutation({
     mutationKey: ["updateBooking"],
-    mutationFn: (id) =>
+    mutationFn: ({id, breakfast}) =>
       updateBooking(id, {
         status: "checked-in",
         isPaid: true,
+        ...breakfast,
       }),
     onSuccess: (data) => {
       // Invalidate the query to refetch the booking data after update
       queryClient.invalidateQueries({
-        queryKey: ["booking", data.id],
+        active: true,
       });
       toast.success(`Booking ${data.id} checked in`);
       navigate("/");
