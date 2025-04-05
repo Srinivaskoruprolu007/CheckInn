@@ -74,8 +74,6 @@ const Pagination = ({ length }) => {
 
   const nextPage = () => {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
-    console.log("nextPage", next);
-
     searchParams.set("page", next);
     setSearchParams(searchParams);
   };
