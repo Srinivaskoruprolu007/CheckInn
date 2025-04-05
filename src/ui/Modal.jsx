@@ -2,8 +2,6 @@ import styled from "styled-components";
 import React, {
   cloneElement,
   useContext,
-  useEffect,
-  useRef,
   useState,
 } from "react";
 import { HiXMark } from "react-icons/hi2";
