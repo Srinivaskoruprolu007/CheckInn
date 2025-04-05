@@ -17,17 +17,17 @@ const useFetchBookings = () => {
   const asc = direction === "asc";
 
   const sort = { field, value: asc };
+  // pagination
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
   const {
-    data,
+    data :{data: bookings, count} = {},
     error,
     isPending: isLoading,
   } = useQuery({
-    queryKey: ["bookings", filter, sort],
-    queryFn: () => getBookings({ filter, sortBy: sort }),
+    queryKey: ["bookings", filter, sort, page],
+    queryFn: () => getBookings({ filter, sortBy: sort , page}),
   });
 
-  const bookings = data?.data || [];
-  const count = data?.count || 0;
 
   return { error, isLoading, bookings, count };
 };
