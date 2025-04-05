@@ -7,13 +7,21 @@ import useLogin from "./useLogin";
 import SpinnerMini from "../../ui/Spinner";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("srinivas@srinivas.tech.co");
+  const [email, setEmail] = useState("srinivas@srinivas.tech.com");
   const [password, setPassword] = useState("Srinivas@cabin@123");
   const { userLogin, isLogin } = useLogin();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) return;
-    userLogin({ email, password });
+    userLogin(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   };
   return (
     <Form onSubmit={handleSubmit}>
@@ -36,7 +44,7 @@ const LoginForm = () => {
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button type="submit" size="large" disabled={isLogin}>
+        <Button size="large" disabled={isLogin}>
           {isLogin ? <SpinnerMini /> : "Login"}
         </Button>
       </FormRowVertical>
