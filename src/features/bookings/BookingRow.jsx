@@ -10,6 +10,7 @@ import Menus from "../../ui/Menus";
 import { MdCheckCircleOutline } from "react-icons/md";
 import { CgEye } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import { HiArrowDownOnSquare } from "react-icons/hi2";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -95,6 +96,14 @@ function BookingRow({
             >
               See Details
             </Menus.Button>
+            {status === "unconfirmed" && (
+              <Menus.Button
+                icon={<HiArrowDownOnSquare />}
+                onClick={() => navigate(`/checkin/${bookingId}`)}
+              >
+                Check-in
+              </Menus.Button>
+            )}
           </Menus.List>
         </Menus.Menu>
       </Menus>

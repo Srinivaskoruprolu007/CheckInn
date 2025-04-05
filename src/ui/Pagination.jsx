@@ -70,8 +70,6 @@ const Pagination = ({ length }) => {
     ? 1
     : Number(searchParams.get("page"));
 
-  console.log("Current Page:", currentPage); // Log the current page
-
   const pageCount = Math.ceil(length / PAGE_COUNT);
 
   const nextPage = () => {
