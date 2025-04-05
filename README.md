@@ -1,8 +1,46 @@
-# React + Vite
+# CheckInn - Hotel Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern hotel management system built with React and Vite, designed to streamline hotel operations and enhance guest experiences.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard Overview**: View key metrics and statistics at a glance
+- **Booking Management**: Create, view, and manage bookings with filtering and sorting options
+- **Guest Management**: Track guest information and preferences
+- **Check-in/Check-out System**: Streamlined process for guest arrivals and departures
+- **Cabin Management**: Manage different room types and availability
+- **Settings Management**: Configure hotel-specific settings like breakfast pricing
+- **Responsive UI**: Modern interface that works across devices
+- **Pagination**: Efficient navigation through large datasets
+
+## Tech Stack
+
+- **Frontend**: React 18, Vite
+- **Styling**: Styled Components
+- **Routing**: React Router
+- **State Management**: React Query for server state
+- **Form Handling**: React Hook Form
+- **Notifications**: React Hot Toast
+- **Icons**: React Icons
+- **Backend/Database**: Supabase
+- **Code Quality**: ESLint, Prettier
+
+## Project Structure
+
+## Getting Started
+
+1. Clone the repository
+```bash
+git clone
+```bash
+git clone https://github.com/Srinivaskoruprolu007/CheckInn.git
+```
+2. Install dependencies
+```bash
+npm install
+```
+3. Start the development server
+```bash
+npm run dev
+```
+
