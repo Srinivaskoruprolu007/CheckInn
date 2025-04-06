@@ -27,3 +27,9 @@ export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "INR" }).format(
     value
   );
+
+export const formatPercentage = (value) =>
+  new Intl.NumberFormat("en", {
+    style: "percent",
+    minimumFractionDigits: 0,
+  }).format(value);

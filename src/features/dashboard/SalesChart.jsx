@@ -1,5 +1,16 @@
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
+import Heading from "../../ui/Heading";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { eachDayOfInterval, format, subDays, isSameDay } from "date-fns";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -57,3 +68,66 @@ const colors = isDarkMode
       text: "#374151",
       background: "#fff",
     };
+
+const SalesChart = ({ bookings, numDays }) => {
+  const allDates = eachDayOfInterval({
+    start: subDays(new Date(), numDays - 1),
+    end: new Date(),
+  });
+  const data = allDates.map((date) => {
+    return {
+      label: format(date, "MMM dd"),
+      totalSales: bookings
+        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc, booking) => acc + booking.totalPrice, 0),
+      extrasSales: bookings
+        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc, booking) => acc + booking.extraPrice, 0),
+    };
+  });
+  console.log(data);
+
+  return (
+    <StyledSalesChart>
+      <Heading as={"h2"}>Sales</Heading>
+      <ResponsiveContainer height={300} width={"100%"}>
+        <AreaChart data={data} width={700} height={300}>
+          <XAxis
+            dataKey={"label"}
+            tick={{ fill: colors.text }}
+            tickLine={{ stroke: colors.text }}
+          />
+          <YAxis
+            dataKey={"totalSales"}
+            unit={"₹"}
+            tick={{ fill: colors.text }}
+            tickLine={{ stroke: colors.text }}
+          />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip
+            labelStyle={{ color: "yellowgreen", fontWeight: "bold" }}
+            cursor={{ fill: colors.text }}
+            itemStyle={{ color: "blue", fill: "blue" }}
+          />
+          <Area
+            dataKey={"totalSales"}
+            type={"monotone"}
+            stroke={colors.totalSales.stroke}
+            fill={colors.totalSales.fill}
+            name="Total Sales"
+            unit={"₹"}
+          />
+          <Area
+            dataKey={"extrasSales"}
+            type={"monotone"}
+            stroke={colors.extrasSales.stroke}
+            fill={colors.extrasSales.fill}
+            name="Extras Sales"
+            unit={"₹"}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </StyledSalesChart>
+  );
+};
+export default SalesChart;
