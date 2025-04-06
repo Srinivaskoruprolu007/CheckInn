@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
 import Dashboard from "./pages/Dashboard";
-import Account from "./pages/Account";
 import Bookings from "./pages/Bookings";
+import Users from "./pages/Users";
 import Cabins from "./pages/Cabins";
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
@@ -33,7 +33,7 @@ const App = () => {
           >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="account" element={<Account />} />
+            <Route path="users" element={<Users />} />
             <Route path="bookings" element={<Bookings />} />
             <Route path="bookings/:bookingId" element={<Booking />} />
             <Route path="checkin/:bookingId" element={<Checkin />} />
