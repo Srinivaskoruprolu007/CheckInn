@@ -18,7 +18,7 @@ import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Account from "./pages/Account";
 import { Toaster } from "react-hot-toast";
-import DarkModeProvider from "./context/darkModeContext";
+import DarkModeProvider from "./context/DarkModeContext";
 
 const App = () => {
   return (
