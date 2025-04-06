@@ -2,35 +2,43 @@ import { createContext, useContext } from "react";
 import styled from "styled-components";
 
 const StyledTable = styled.div`
-  border: 1px solid var(--color-grey-200);
-
+  border: 1px solid var(--color-grey-100);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
-  border-radius: 7px;
+  border-radius: var(--border-radius-md);
   overflow: hidden;
+  box-shadow: var(--shadow-md);
 `;
 
 const CommonRow = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
-  column-gap: 2.4rem;
+  column-gap: 2rem;
   align-items: center;
-  transition: none;
+  transition: background-color 0.2s ease;
 `;
 
 const StyledHeader = styled(CommonRow)`
   padding: 1.6rem 2.4rem;
-
   background-color: var(--color-grey-50);
-  border-bottom: 1px solid var(--color-grey-100);
+  border-bottom: 1px solid var(--color-grey-200);
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
   font-weight: 600;
-  color: var(--color-grey-600);
+  color: var(--color-grey-700);
 `;
 
 const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
+  background-color: var(--color-grey-0);
+
+  &:nth-child(even) {
+    background-color: var(--color-grey-50);
+  }
+
+  &:hover {
+    background-color: var(--color-grey-100);
+  }
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
@@ -47,7 +55,6 @@ const Footer = styled.footer`
   justify-content: center;
   padding: 1.2rem;
 
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
   &:not(:has(*)) {
     display: none;
   }
@@ -57,6 +64,7 @@ const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
+  color: var(--color-grey-500);
   margin: 2.4rem;
 `;
 
@@ -78,6 +86,7 @@ function Header({ children }) {
     </StyledHeader>
   );
 }
+
 function Row({ children }) {
   const { columns } = useContext(TableContext);
   return (
@@ -89,7 +98,6 @@ function Row({ children }) {
 
 function Body({ data, render }) {
   if (!data?.length) return <Empty>No data to show at the moment</Empty>;
-
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
