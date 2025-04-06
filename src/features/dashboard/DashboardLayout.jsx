@@ -5,6 +5,7 @@ import useRecentStays from "./useRecentStays";
 import Stats from "./Stats";
 import SalesChart from "./SalesChart";
 import { useParams, useSearchParams } from "react-router-dom";
+import DurationChart from "./DurationChart";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -32,7 +33,7 @@ const DashboardLayout = () => {
         Statistics
       </Stats>
       <div>Today's Activity</div>
-      <div>Chart stay duration</div>
+      <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );
