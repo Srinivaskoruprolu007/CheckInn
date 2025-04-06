@@ -1,4 +1,4 @@
-import Button from "../../ui/Button";
+import ButtonIcon from "../../ui/ButtonIcon";
 import { HiArrowLeftEndOnRectangle } from "react-icons/hi2";
 import useLogout from "./useLogout";
 import Spinner from "../../ui/Spinner";
@@ -11,15 +11,19 @@ const Logout = () => {
     userLogout();
   };
   return (
-    <Button variation="danger" onClick={handleLogout} disabled={isLogouting}>
+    <ButtonIcon
+      variation="danger"
+      onClick={handleLogout}
+      disabled={isLogouting}
+    >
       {isLogouting ? (
         <SpinnerMini />
       ) : (
         <>
-          <HiArrowLeftEndOnRectangle /> <span>logout</span>
+          <HiArrowLeftEndOnRectangle />
         </>
       )}
-    </Button>
+    </ButtonIcon>
   );
 };
 
