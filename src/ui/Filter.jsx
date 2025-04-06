@@ -41,6 +41,7 @@ const Filter = ({ filteredField, options }) => {
   const currentFilteredValue =
     searchParams.get(filteredField) || options[0].value;
   const handleClick = (value) => {
+    console.log(filteredField);
     searchParams.set(filteredField, value);
     if (searchParams.get("page")) searchParams.set("page", 1);
     setSearchParams(searchParams);
