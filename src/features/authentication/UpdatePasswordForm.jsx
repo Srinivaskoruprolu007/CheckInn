@@ -1,48 +1,58 @@
-import { Button } from "bootstrap";
+import  Button  from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useForm } from "react-hook-form";
+import useUpdateUser from "./useUpdateuser";
 const UpdatePasswordForm = () => {
-  const { register, formState, handleSubmit, getValues } = useForm();
+  const { register, formState, handleSubmit, getValues, reset } = useForm();
+  const { isUpdating, updateUser } = useUpdateUser();
   const { errors } = formState;
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ password }) => {
+    updateUser({ password }, { onSuccess: reset });
   };
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
-        label={"New password(min 8 chars)"}
+        label="New password (min 8 chars)"
         error={errors?.password?.message}
       >
         <Input
           type="password"
           id="password"
           autoComplete="current-password"
+          disabled={isUpdating}
           {...register("password", {
             required: "This field is required",
             minLength: {
               value: 8,
-              message: "Password must be at least 8 characters long",
+              message: "Password needs a minimum of 8 characters",
             },
           })}
         />
       </FormRow>
-      <FormRow label={"Confirm password"}>
+
+      <FormRow
+        label="Confirm password"
+        error={errors?.passwordConfirm?.message}
+      >
         <Input
           type="password"
-          id="passwordConfirm"
           autoComplete="new-password"
+          id="passwordConfirm"
+          disabled={isUpdating}
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
-              getValues().password === value || "Passwords do not match",
+              getValues().password === value || "Passwords need to match",
           })}
         />
       </FormRow>
       <FormRow>
-        <Button>Cancel</Button>
-        <Button>Update</Button>
+        <Button onClick={reset} type="reset" variation="secondary">
+          Cancel
+        </Button>
+        <Button disabled={isUpdating}>Update password</Button>
       </FormRow>
     </Form>
   );
