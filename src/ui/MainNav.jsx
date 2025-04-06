@@ -73,9 +73,9 @@ const MainNav = () => {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/account">
+          <StyledNavLink to="/users">
             <FaUsers />
-            Account
+            Users
           </StyledNavLink>
         </li>
         <li>

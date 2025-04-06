@@ -49,7 +49,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onClose ? "modal" : "regular"}
     >
-      <FormRow label={"Cabin Name"} errors={errors?.name?.message}>
+      <FormRow label={"Cabin Name"} error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
@@ -57,7 +57,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
           disabled={isCreating || isEditing}
         />
       </FormRow>
-      <FormRow label={"Maximum capacity"} errors={errors?.maxCapacity?.message}>
+      <FormRow label={"Maximum capacity"} error={errors?.maxCapacity?.message}>
         <Input
           type="number"
           id="maxCapacity"
@@ -66,7 +66,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
         />
       </FormRow>
 
-      <FormRow label={"Regular price"} errors={errors?.regularPrice?.message}>
+      <FormRow label={"Regular price"} error={errors?.regularPrice?.message}>
         <Input
           type="number"
           id="regularPrice"
@@ -75,7 +75,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
         />
       </FormRow>
 
-      <FormRow label={"Discount"} errors={errors?.discount?.message}>
+      <FormRow label={"Discount"} error={errors?.discount?.message}>
         <Input
           type="number"
           id="discount"
@@ -96,7 +96,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
 
       <FormRow
         label={"Description for website"}
-        errors={errors?.description?.message}
+        error={errors?.description?.message}
       >
         <Textarea
           type="number"
@@ -107,7 +107,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
         />
       </FormRow>
 
-      <FormRow label={"Cabin photo"} errors={errors?.image?.message}>
+      <FormRow label={"Cabin photo"} error={errors?.image?.message}>
         <FileInput
           id="image"
           accept="image/*"
