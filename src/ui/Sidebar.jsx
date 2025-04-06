@@ -16,13 +16,13 @@ const StyledSidebar = styled.aside`
 `;
 const Sidebar = () => {
   const { isPending, cabins } = useFetchCabins();
-  // const { bookings, error: bookingError, isLoading } = useFetchBookings();
+  const { bookings, error: bookingError, isLoading } = useFetchBookings();
   const { error, isPending: isSettingsLoaded, settings } = useFetchSettings();
   return (
     <StyledSidebar>
       <Logo />
       <MainNav />
-      <Uploader />
+      {/* <Uploader /> // only for testing */}
     </StyledSidebar>
   );
 };
