@@ -19,6 +19,7 @@ import { HiArrowUpOnSquare, HiMiniTrash } from "react-icons/hi2";
 import useFetchBooking from "./useFetchBooking";
 import useCheckout from "../check-in/useCheckout";
 import useDeleteBooking from "./useDeleteBooking";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ function BookingDetail() {
   const navigate = useNavigate();
   const moveBack = useMoveBack();
   if (isLoading) return <Spinner />;
+  if (!booking) return <Empty resource={"booking"} />;
   const { status, id: bookingId } = booking;
   const statusToTagName = {
     unconfirmed: "blue",
@@ -77,9 +79,7 @@ function BookingDetail() {
           </Button>
         )}
         <Modal.Open opens={"delete"}>
-          <Button variation="danger">
-            Delete
-          </Button>
+          <Button variation="danger">Delete</Button>
         </Modal.Open>
 
         <Button variation="secondary" onClick={moveBack}>
