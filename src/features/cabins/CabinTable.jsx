@@ -3,33 +3,37 @@ import CabinRow from "./CabinRow";
 import useFetchCabins from "./useFetchCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
-import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
 
 function CabinTable() {
-  const { isLoading, cabins } = useFetchCabins();
-  const [searchParams] = useSearchParams();
+  const { isLoading, cabins, count } = useFetchCabins();
 
   if (isLoading) return <Spinner />;
-  if (!cabins?.length) return <Empty resourceName="cabins" />;
+  if (!cabins?.length) return <Empty resource="cabins" />;
+  let length;
+  if (cabins.length > 0) {
+    length = cabins.length;
+  }
 
-  // 1) FILTER
-  const filterValue = searchParams.get("discount") || "all";
+  // // 1) FILTER
+  // const filterValue = searchParams.get("discount") || "all";
 
-  let filteredCabins;
-  if (filterValue === "all") filteredCabins = cabins;
-  if (filterValue === "no-discounts")
-    filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
-  if (filterValue === "with-discounts")
-    filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
+  // let filteredCabins;
+  // if (filterValue === "all") filteredCabins = cabins;
+  // if (filterValue === "no-discounts")
+  //   filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
+  // if (filterValue === "with-discounts")
+  //   filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
-  // 2) SORT
-  const sortBy = searchParams.get("sort") || "startDate-asc";
-  const [field, direction] = sortBy.split("-");
-  const modifier = direction === "asc" ? 1 : -1;
-  const sortedCabins = filteredCabins?.sort(
-    (a, b) => (a[field] - b[field]) * modifier
-  );
+  // // 2) SORT
+  // const sortBy = searchParams.get("sort") || "startDate-asc";
+  // const [field, direction] = sortBy.split("-");
+  // const modifier = direction === "asc" ? 1 : -1;
+  // const sortedCabins = filteredCabins?.sort(
+  //   (a, b) => (a[field] - b[field]) * modifier
+  // );
+  // commented as we developed in api side
 
   return (
     <Menus>
@@ -46,9 +50,12 @@ function CabinTable() {
         <Table.Body
           // data={cabins}
           // data={filteredCabins}
-          data={sortedCabins}
+          data={cabins}
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
+        <Table.Footer>
+          <Pagination length={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

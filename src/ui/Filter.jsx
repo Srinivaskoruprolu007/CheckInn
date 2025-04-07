@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
@@ -37,22 +38,24 @@ const FilterButton = styled.button`
 
 const Filter = ({ filteredField, options }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilteredValue = searchParams.get(filteredField) || options[0];
+  const currentFilteredValue =
+    searchParams.get(filteredField) || options[0].value;
   const handleClick = (value) => {
     searchParams.set(filteredField, value);
+    if (searchParams.get("page")) searchParams.set("page", 1);
     setSearchParams(searchParams);
   };
   return (
     <StyledFilter>
       {options &&
-        options?.map((value) => (
+        options?.map((option) => (
           <FilterButton
-            key={value}
-            onClick={() => handleClick(value)}
-            active={currentFilteredValue === value}
-            disabled={currentFilteredValue === value}
+            key={option?.value}
+            onClick={() => handleClick(option?.value)}
+            active={currentFilteredValue === option?.value}
+            disabled={currentFilteredValue === option?.value}
           >
-            {value.toUpperCase()}
+            {option?.label}
           </FilterButton>
         ))}
     </StyledFilter>
