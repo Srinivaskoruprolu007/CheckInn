@@ -22,7 +22,7 @@ const Sidebar = () => {
     <StyledSidebar>
       <Logo />
       <MainNav />
-      {/* <Uploader /> // only for testing */}
+      {/* <Uploader /> */}
     </StyledSidebar>
   );
 };

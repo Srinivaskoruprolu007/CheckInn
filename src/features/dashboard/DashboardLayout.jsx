@@ -4,7 +4,8 @@ import Spinner from "../../ui/Spinner";
 import useRecentStays from "./useRecentStays";
 import Stats from "./Stats";
 import SalesChart from "./SalesChart";
-import { useParams, useSearchParams } from "react-router-dom";
+import TodayActivity from "../check-in/TodayActivity";
+import { useSearchParams } from "react-router-dom";
 import DurationChart from "./DurationChart";
 
 const StyledDashboardLayout = styled.div`
@@ -32,7 +33,7 @@ const DashboardLayout = () => {
       <Stats bookings={bookings} confirmedStays={confirmedStays}>
         Statistics
       </Stats>
-      <div>Today's Activity</div>
+      <TodayActivity />
       <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
