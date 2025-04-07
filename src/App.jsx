@@ -18,13 +18,13 @@ import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Account from "./pages/Account";
 import { Toaster } from "react-hot-toast";
-import  DarkModeProvider  from "./context/darkModeContext";
+import DarkModeProvider from "./context/darkModeContext";
 
 const App = () => {
   return (
     <>
       <DarkModeProvider>
-      <GlobalStyles />
+        <GlobalStyles />
         <Router>
           <Routes>
             <Route
@@ -66,6 +66,7 @@ const App = () => {
               fontSize: "1.6rem",
               maxWidth: "500px",
               padding: "16px 8px",
+              color: "var(--color-blue-700)",
               backgroundColor: "var(--color-grey-0)",
             },
           }}
